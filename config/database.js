@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDb = () => {
   mongoose
-    .connect("mongodb://localhost:27017/ecommercedb")
+    .connect("mongodb+srv://suleman2795:UvecXRbYcd4ZjUe0@cluster0.jjn78vd.mongodb.net/test")
     .then(() => {
       console.log("connected");
     })
