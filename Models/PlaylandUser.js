@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     type : Number,
 
   },
-  img_url: {
+  img_path: {
     type: String,
   },
   
