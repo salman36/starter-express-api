@@ -8,8 +8,7 @@ export const BusinessPlaylandUserCreate = catchAsyncErrors(async (req, res, next
 
     const record = new BusinessPlaylandUser({
 
-      path: `http://localhost:9000/${req.file.path.replace(/\\/g, "/")}`,
-      image: req.file.filename,
+      path: req.body.img_path,
       playland_name: req.body.playland_name,
       discription: req.body.discription,
       latitude: req.body.latitude,
@@ -40,6 +39,8 @@ export const BusinessPlaylandUserCreate = catchAsyncErrors(async (req, res, next
 export const BusinessPlaylandAllData = catchAsyncErrors(async (req, res, next) => {
 
   try {
+
+    await BusinessPlaylandUser.findOne({firebase_id: req.body.firebase_id});
 
     BusinessPlaylandUser.find({}, (err, data) => {
       if (err) {

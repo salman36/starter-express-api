@@ -35,11 +35,7 @@ const userSchema = new mongoose.Schema({
     type : Number,
 
   },
-  image: {
-    type: String,
-    // required: true,
-  },
-  path: {
+  img_path: {
     type: String,
   },
   

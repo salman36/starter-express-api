@@ -14,7 +14,7 @@ import {AppUserSet} from "../Controllers/AppUSerController.js";
 import {AppBooking} from "../Controllers/BookingUserController.js";
 import {PlaylandUserCreate, PlaylandAllData} from "../Controllers/PlaylandUserController.js";
 import { BusinessUserSet } from "../Controllers/BusinessUserController.js";
-import { BusinessPlaylandUserCreate , BusinessPlaylandAllData } from "../Controllers/BusinessPlaylandUserController.js";
+import {  BusinessPlaylandAllData } from "../Controllers/BusinessPlaylandUserController.js";
 import { BusinessBookingUserCreate } from "../Controllers/BusinessBookingUserController.js";
 
 const userRouter = express.Router();
@@ -31,7 +31,7 @@ userRouter.route("/playlandrecord").get(PlaylandAllData)
 
 userRouter.route("/businessuser").post(BusinessUserSet);
 
-userRouter.route("/businessplaylanduser").post(upload.single("image"),BusinessPlaylandUserCreate);
+// userRouter.route("/businessplaylanduser").post(upload.single("image"),BusinessPlaylandUserCreate);
 
 userRouter.route("/businessplaylandrecord").get(BusinessPlaylandAllData)
 
