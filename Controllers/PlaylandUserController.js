@@ -7,7 +7,8 @@ export const PlaylandUserCreate = catchAsyncErrors(async (req, res, next) => {
   try {
     const record = new PlaylandUser({
 
-      img_path: req.body.img_path,
+      path: `http://localhost:9000/${req.file.path.replace(/\\/g, "/")}`,
+      image: req.file.filename,
       playland_name: req.body.playland_name,
       discription: req.body.discription,
       latitude: req.body.latitude,

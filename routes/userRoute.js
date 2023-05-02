@@ -23,7 +23,7 @@ userRouter.route("/appuser").post(AppUserSet);
 
 userRouter.route("/appbooking").post(AppBooking);
 
-userRouter.route("/playlanduser").post(PlaylandUserCreate);
+userRouter.route("/playlanduser").post(upload.single("image"),PlaylandUserCreate);
 
 userRouter.route("/playlandrecord").get(PlaylandAllData)
 

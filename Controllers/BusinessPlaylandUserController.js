@@ -8,7 +8,8 @@ export const BusinessPlaylandUserCreate = catchAsyncErrors(async (req, res, next
 
     const record = new BusinessPlaylandUser({
 
-      path: req.body.img_path,
+      path: `http://localhost:9000/${req.file.path.replace(/\\/g, "/")}`,
+      image: req.file.filename,
       playland_name: req.body.playland_name,
       discription: req.body.discription,
       latitude: req.body.latitude,
