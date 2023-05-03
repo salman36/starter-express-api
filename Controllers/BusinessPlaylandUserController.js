@@ -1,55 +1,54 @@
 import ErrorHandler from "../utils/ErrorHandler.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import BusinessPlaylandUser from "../Models/BusinessPlaylandUser.js";
+import PlaylandUser from "../Models/PlaylandUser.js";
 
-export const BusinessPlaylandUserCreate = catchAsyncErrors(async (req, res, next) => {
+// export const BusinessPlaylandUserCreate = catchAsyncErrors(async (req, res, next) => {
+
+//   try {
+
+//     const record = new BusinessPlaylandUser({
+
+//       path: `http://localhost:9000/${req.file.path.replace(/\\/g, "/")}`,
+//       image: req.file.filename,
+//       playland_name: req.body.playland_name,
+//       discription: req.body.discription,
+//       latitude: req.body.latitude,
+//       longitude: req.body.longitude,
+//       time_open: req.body.time_open,
+//       time_close: req.body.time_close,
+//       price: req.body.price,
+//       discount: req.body.discount,
+
+//     });
+//     await record.save();
+//     // res.send('Record saved successfully.');
+//     res.status(201).json({
+//       message: "success",
+//       record
+//     });
+
+//   } catch (err) {
+//     console.error(err);
+//   }
+
+
+// });
+
+
+
+////////////////////////////  get All user playland record ////////////////////////
+export const BusinessPlaylandData = catchAsyncErrors(async (req, res, next) => {
 
   try {
 
-    const record = new BusinessPlaylandUser({
+    const userPlayland = await PlaylandUser.find({user_firebase_id: req.body.user_firebase_id});
 
-      path: `http://localhost:9000/${req.file.path.replace(/\\/g, "/")}`,
-      image: req.file.filename,
-      playland_name: req.body.playland_name,
-      discription: req.body.discription,
-      latitude: req.body.latitude,
-      longitude: req.body.longitude,
-      time_open: req.body.time_open,
-      time_close: req.body.time_close,
-      price: req.body.price,
-      discount: req.body.discount,
-
-    });
-    await record.save();
-    // res.send('Record saved successfully.');
-    res.status(201).json({
-      message: "success",
-      record
-    });
-
-  } catch (err) {
-    console.error(err);
-  }
-
-
-});
-
-
-
-////////////////////////////  get All playland Record ////////////////////////
-export const BusinessPlaylandAllData = catchAsyncErrors(async (req, res, next) => {
-
-  try {
-
-    await BusinessPlaylandUser.findOne({firebase_id: req.body.firebase_id});
-
-    BusinessPlaylandUser.find({}, (err, data) => {
-      if (err) {
-        res.send(err);
-      } else {
-        res.json(data);
-      }
-    });
+    if (!userPlayland) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+  
+    res.status(201).json({ message: "success", userPlayland });
     
   } catch (err) {
     console.error(err);

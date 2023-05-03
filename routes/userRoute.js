@@ -12,9 +12,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 import {AppUserSet} from "../Controllers/AppUSerController.js";
 import {AppBooking} from "../Controllers/BookingUserController.js";
-import {PlaylandUserCreate, PlaylandAllData} from "../Controllers/PlaylandUserController.js";
+import {CreatePlaylandUser, PlaylandAllData} from "../Controllers/PlaylandUserController.js";
 import { BusinessUserSet } from "../Controllers/BusinessUserController.js";
-import {  BusinessPlaylandAllData } from "../Controllers/BusinessPlaylandUserController.js";
+import {  BusinessPlaylandData } from "../Controllers/BusinessPlaylandUserController.js";
 import { BusinessBookingUserCreate } from "../Controllers/BusinessBookingUserController.js";
 
 const userRouter = express.Router();
@@ -23,7 +23,9 @@ userRouter.route("/appuser").post(AppUserSet);
 
 userRouter.route("/appbooking").post(AppBooking);
 
-userRouter.route("/playlanduser").post(upload.single("image"),PlaylandUserCreate);
+// userRouter.route("/playlanduser").post(upload.single("image"),PlaylandUserCreate);
+
+userRouter.route("/create/playlanduser").post(CreatePlaylandUser);
 
 userRouter.route("/playlandrecord").get(PlaylandAllData)
 
@@ -33,7 +35,7 @@ userRouter.route("/businessuser").post(BusinessUserSet);
 
 // userRouter.route("/businessplaylanduser").post(upload.single("image"),BusinessPlaylandUserCreate);
 
-userRouter.route("/businessplaylandrecord").get(BusinessPlaylandAllData)
+userRouter.route("/user/playland").get(BusinessPlaylandData)
 
 userRouter.route("/businessbookinguser").post(BusinessBookingUserCreate);
 

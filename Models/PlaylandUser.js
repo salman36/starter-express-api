@@ -42,6 +42,9 @@ const userSchema = new mongoose.Schema({
   path: {
     type: String,
   },
+  user_firebase_id: {
+    type : String,
+  }
   
 });
 
