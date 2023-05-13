@@ -44,10 +44,12 @@ export const CreatePlaylandUser = catchAsyncErrors(async (req, res, next) => {
       discription: req.body.discription,
       latitude: req.body.latitude,
       longitude: req.body.longitude,
+      location: req.body.location,
       time_open: req.body.time_open,
       time_close: req.body.time_close,
       price: req.body.price,
       discount: req.body.discount,
+      path_url:req.body.path_url,
 
     });
     await record.save();

@@ -56,3 +56,25 @@ export const BusinessPlaylandData = catchAsyncErrors(async (req, res, next) => {
 
 
 });
+
+
+
+////////////////////////////  Booked playland record ////////////////////////
+export const BusinessPlaylandBooked = catchAsyncErrors(async (req, res, next) => {
+
+  try {
+
+    const bookedplayland = await PlaylandUser.find({_id: req.body._id});
+
+    if (!bookedplayland) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+  
+    res.status(201).json({ message: "success", bookedplayland });
+    
+  } catch (err) {
+    console.error(err);
+  }
+
+
+});

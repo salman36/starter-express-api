@@ -21,18 +21,23 @@ const userSchema = new mongoose.Schema({
   phone: {
     type: Number,
     // required: [true, "Please enter Your Phone No"],
-    minlength: [11, "Phone no must be 11 digit"],
-    select: false,
+    // minlength: [11, "Phone no must be 11 digit"],
+    // select: false,
   },
   latitude: {
     type: Number,
-    minlength: [11, "Phone no must be 11 digit"],
-    select: false,
+    // minlength: [11, "Phone no must be 11 digit"],
+    // select: false,
   },
   longitude: {
     type: Number,
-    minlength: [11, "Phone no must be 11 digit"],
-    select: false,
+    // minlength: [11, "Phone no must be 11 digit"],
+    // select: false,
+  },
+  location: {
+    type: String,
+    // minlength: [11, "Phone no must be 11 digit"],
+    // select: false,
   },
   image: {
     type: String,

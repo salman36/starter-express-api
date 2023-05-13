@@ -5,7 +5,7 @@ import AppUser from "../Models/AppUser.js";
 export const AppUserSet = catchAsyncErrors(async (req, res, next) => {
 
     const appuserdata = await AppUser.findOne({firebase_id: req.body.firebase_id});
-    const { firebase_id,name, email, phone, latitude, longitude, image } = req.body;
+    const { firebase_id,name, email, phone, latitude, longitude,location, image } = req.body;
     
     
     
@@ -18,6 +18,7 @@ export const AppUserSet = catchAsyncErrors(async (req, res, next) => {
         phone,
         latitude,
         longitude,
+        location,
         image,
     });
 
@@ -43,6 +44,28 @@ export const AppUserSet = catchAsyncErrors(async (req, res, next) => {
         });
 
     
+  }
+
+
+});
+
+
+
+//////////////////////////// get user Record ////////////////////////
+export const AppUserData = catchAsyncErrors(async (req, res, next) => {
+
+  try {
+
+    const userRecord = await AppUser.find({firebase_id: req.body.firebase_id});
+
+    if (!userRecord) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+  
+    res.status(201).json({ message: "success", userRecord });
+    
+  } catch (err) {
+    console.error(err);
   }
 
 

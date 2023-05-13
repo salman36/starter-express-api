@@ -32,3 +32,26 @@ export const AppBooking = catchAsyncErrors(async (req, res, next) => {
 
 
 });
+
+
+
+
+//////////////////////////// get user booking Record ////////////////////////
+export const AppBookingData = catchAsyncErrors(async (req, res, next) => {
+
+  try {
+
+    const userBooking = await BookingUser.find({appuser_id: req.body.appuser_id});
+
+    if (!userBooking) {
+      return next(new ErrorHandler("User not found", 404));
+    }
+  
+    res.status(201).json({ message: "success", userBooking });
+    
+  } catch (err) {
+    console.error(err);
+  }
+
+
+});

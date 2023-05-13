@@ -34,6 +34,11 @@ const userSchema = new mongoose.Schema({
     minlength: [11, "Phone no must be 11 digit"],
     select: false,
   },
+  location: {
+    type: String,
+    // minlength: [11, "Phone no must be 11 digit"],
+    // select: false,
+  },
   image: {
     type: String,
   },

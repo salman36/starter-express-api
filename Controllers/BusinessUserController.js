@@ -5,7 +5,7 @@ import BusinessUser from "../Models/BusinessUser.js";
 export const BusinessUserSet = catchAsyncErrors(async (req, res, next) => {
 
     const businessuserdata = await BusinessUser.findOne({firebase_id: req.body.firebase_id});
-    const { firebase_id,name, email, phone, latitude, longitude, image } = req.body;
+    const { firebase_id,name, email, phone, latitude, longitude,location, image } = req.body;
     
     
     
@@ -18,6 +18,7 @@ export const BusinessUserSet = catchAsyncErrors(async (req, res, next) => {
         phone,
         latitude,
         longitude,
+        location,
         image,
     });
 
