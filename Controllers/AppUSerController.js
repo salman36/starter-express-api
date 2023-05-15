@@ -55,8 +55,8 @@ export const AppUserSet = catchAsyncErrors(async (req, res, next) => {
 export const AppUserData = catchAsyncErrors(async (req, res, next) => {
 
   try {
-
-    const userRecord = await AppUser.find({firebase_id: req.body.firebase_id});
+    const id = req.params.id;
+    const userRecord = await AppUser.find({firebase_id: id});
 
     if (!userRecord) {
       return next(new ErrorHandler("User not found", 404));

@@ -41,11 +41,13 @@ import PlaylandUser from "../Models/PlaylandUser.js";
 export const BusinessPlaylandData = catchAsyncErrors(async (req, res, next) => {
 
   try {
-
-    const userPlayland = await PlaylandUser.find({user_firebase_id: req.body.user_firebase_id});
+    
+    const id = req.params.id;
+    // console.log(id);
+    const userPlayland = await PlaylandUser.find({user_firebase_id : id});
 
     if (!userPlayland) {
-      return next(new ErrorHandler("Product not found", 404));
+      return next(new ErrorHandler("Playland not found", 404));
     }
   
     res.status(201).json({ message: "success", userPlayland });
@@ -59,22 +61,3 @@ export const BusinessPlaylandData = catchAsyncErrors(async (req, res, next) => {
 
 
 
-////////////////////////////  Booked playland record ////////////////////////
-export const BusinessPlaylandBooked = catchAsyncErrors(async (req, res, next) => {
-
-  try {
-
-    const bookedplayland = await PlaylandUser.find({_id: req.body._id});
-
-    if (!bookedplayland) {
-      return next(new ErrorHandler("Product not found", 404));
-    }
-  
-    res.status(201).json({ message: "success", bookedplayland });
-    
-  } catch (err) {
-    console.error(err);
-  }
-
-
-});

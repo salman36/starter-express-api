@@ -1,6 +1,7 @@
 import ErrorHandler from "../utils/ErrorHandler.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import BusinessBookingUser from "../Models/BusinessBookingUser.js";
+import connectDb from "../config/database.js";
 
 export const BusinessBookingUserCreate = catchAsyncErrors(async (req, res, next) => {
 
@@ -40,13 +41,37 @@ export const BookingUserData = catchAsyncErrors(async (req, res, next) => {
 
   try {
 
-    const userbooking = await BusinessBookingUser.find({appuser_id: req.body.appuser_id});
+    const id = req.params.id;
+    const userbooking = await BusinessBookingUser.find({appuser_id: id});
 
     if (!userbooking) {
       return next(new ErrorHandler("Booking not found", 404));
     }
   
     res.status(201).json({ message: "success", userbooking });
+    
+  } catch (err) {
+    console.error(err);
+  }
+
+
+});
+
+
+////////////////////////////  Booked playland record ////////////////////////
+export const BusinessPlaylandBooked = catchAsyncErrors(async (req, res, next) => {
+
+  try {
+
+    const id = req.params.id;
+
+    const bookedplayland = await BusinessBookingUser.find({appplayland_id: id});
+
+    if (!bookedplayland) {
+      return next(new ErrorHandler("Product not found", 404));
+    }
+  
+    res.status(201).json({ message: "success", bookedplayland });
     
   } catch (err) {
     console.error(err);
