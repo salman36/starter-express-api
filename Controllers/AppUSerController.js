@@ -73,6 +73,23 @@ export const AppUserData = catchAsyncErrors(async (req, res, next) => {
 
 
 
+///////////// update profile data ////////////////////
+
+export const AppUserUpdate = async (req, res, next) => {
+  const product = await AppUser.findById(req.params.id);
+  if (!product) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+  const UpDatetedProduct = await AppUser.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+
+  res.status(201).json({ message: "success", UpDatetedProduct });
+};
+
+
+
 
 
 

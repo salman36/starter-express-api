@@ -10,7 +10,7 @@ const storage = multer.diskStorage({
   }
 });
 const upload = multer({ storage: storage });
-import {AppUserSet, AppUserData} from "../Controllers/AppUSerController.js";
+import {AppUserSet, AppUserData, AppUserUpdate} from "../Controllers/AppUSerController.js";
 import {AppBooking, AppBookingData} from "../Controllers/BookingUserController.js";
 import {CreatePlaylandUser, PlaylandAllData} from "../Controllers/PlaylandUserController.js";
 import { BusinessUserSet } from "../Controllers/BusinessUserController.js";
@@ -22,6 +22,8 @@ const userRouter = express.Router();
 userRouter.route("/appuser").post(AppUserSet);
 
 userRouter.route("/user/record/:id").get(AppUserData);
+
+userRouter.route("/user/update/:id").post(AppUserUpdate);
 
 
 userRouter.route("/appbooking").post(AppBooking);
