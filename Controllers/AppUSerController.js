@@ -34,6 +34,7 @@ export const AppUserSet = catchAsyncErrors(async (req, res, next) => {
     appuserdata.phone = phone;
     appuserdata.latitude = latitude;
     appuserdata.longitude = longitude;
+    appuserdata.image = image;
 
         await appuserdata.save();
 
