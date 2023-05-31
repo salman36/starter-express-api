@@ -34,6 +34,7 @@ export const BusinessUserSet = catchAsyncErrors(async (req, res, next) => {
     businessuserdata.phone = phone;
     businessuserdata.latitude = latitude;
     businessuserdata.longitude = longitude;
+    businessuserdata.image = image;
 
         await businessuserdata.save();
 
@@ -44,6 +45,29 @@ export const BusinessUserSet = catchAsyncErrors(async (req, res, next) => {
         });
 
     
+  }
+
+
+});
+
+
+
+
+//////////////////////////// get Businessuser Record ////////////////////////
+export const BusinessUserGet = catchAsyncErrors(async (req, res, next) => {
+
+  try {
+    const id = req.params.id;
+    const BusinessUserRecord = await BusinessUser.find({firebase_id: id});
+
+    if (!BusinessUserRecord) {
+      return next(new ErrorHandler("Business User not found", 404));
+    }
+  
+    res.status(201).json({ message: "success", BusinessUserRecord });
+    
+  } catch (err) {
+    console.error(err);
   }
 
 

@@ -87,3 +87,34 @@ export const PlaylandAllData = catchAsyncErrors(async (req, res, next) => {
 
 
 });
+
+
+
+///////////// update playland user data ////////////////////
+
+export const PlaylandUserUpdate = async (req, res, next) => {
+  const playlandUser = await PlaylandUser.findById(req.params.id);
+  console.log(playlandUser);
+  if (!playlandUser) {
+    return next(new ErrorHandler("playland not found", 404));
+  }
+  const UpdateplaylandUser = await PlaylandUser.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+
+  res.status(201).json({ message: "success", UpdateplaylandUser });
+};
+
+
+
+///////////// delete playland user ////////////////////
+
+export const PlaylandUserDelete = async (req, res, next) => {
+  const playlandrecord = await PlaylandUser.findById(req.params.id);
+  if (!playlandrecord) {
+    return next(new ErrorHandler("Product not found", 404));
+  }
+  await playlandrecord.remove();
+  res.status(201).json({ message: "success", playlandrecord });
+};

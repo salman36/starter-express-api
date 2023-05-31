@@ -12,8 +12,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 import {AppUserSet, AppUserData, AppUserUpdate} from "../Controllers/AppUSerController.js";
 import {AppBooking, AppBookingData} from "../Controllers/BookingUserController.js";
-import {CreatePlaylandUser, PlaylandAllData} from "../Controllers/PlaylandUserController.js";
-import { BusinessUserSet } from "../Controllers/BusinessUserController.js";
+import {CreatePlaylandUser, PlaylandAllData, PlaylandUserUpdate, PlaylandUserDelete} from "../Controllers/PlaylandUserController.js";
+import { BusinessUserSet, BusinessUserGet } from "../Controllers/BusinessUserController.js";
 import {  BusinessPlaylandData } from "../Controllers/BusinessPlaylandUserController.js";
 import { BusinessBookingUserCreate, BookingUserData, BusinessPlaylandBooked } from "../Controllers/BusinessBookingUserController.js";
 
@@ -36,9 +36,17 @@ userRouter.route("/create/playlanduser").post(CreatePlaylandUser);
 
 userRouter.route("/playlandrecord").get(PlaylandAllData);
 
+userRouter.route("/playlanduser/update/:id").post(PlaylandUserUpdate);
+
+userRouter.route("/playlanduser/delete/:id").post(PlaylandUserDelete);
+
+
 // business user end point
 
 userRouter.route("/businessuser").post(BusinessUserSet);
+
+userRouter.route("/businessuser/record/:id").get(BusinessUserGet);
+
 
 // userRouter.route("/businessplaylanduser").post(upload.single("image"),BusinessPlaylandUserCreate);
 
