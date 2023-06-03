@@ -2,6 +2,16 @@ import ErrorHandler from "../utils/ErrorHandler.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import BusinessBookingUser from "../Models/BusinessBookingUser.js";
 import connectDb from "../config/database.js";
+import dotenv from "dotenv";
+import { response } from "express";
+dotenv.config();
+import stripePackage from 'stripe';
+
+const stripeSecretKey = process.env.SECRET_KEY;
+const stripe = stripePackage(stripeSecretKey);
+
+
+
 
 export const BusinessBookingUserCreate = catchAsyncErrors(async (req, res, next) => {
 
@@ -77,5 +87,35 @@ export const BusinessPlaylandBooked = catchAsyncErrors(async (req, res, next) =>
     console.error(err);
   }
 
+
+});
+
+
+export const PaymentCreate = catchAsyncErrors(async (req, res, next) => {
+
+
+  try {
+    stripe.customers.create({
+
+      email:req.body.stripeEmail,
+      source:req.body.stripeToken,
+      name:req.body.name,
+
+    })
+    .then((customer)=>{
+      return stripe.charages.create({
+        amount:req.body.amount,
+        currency:"USD",
+        customer:customer.id,
+
+      })
+    })
+    .then((charage)=>{
+      response.send(charage);
+    }) 
+
+  } catch (err) {
+    console.error(err);
+  }
 
 });
