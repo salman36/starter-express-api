@@ -80,7 +80,10 @@ export const BusinessPlaylandUpdate = async (req, res, next) => {
 
   const UpdateBookingUser = await BusinessBookingUser.findOneAndUpdate(
     {appuser_id : appuser_id},
-    req.body
+    {
+      paymentstatus : "confirmed",
+      bookingstatus : "confirmed"
+    },
   );
 
   res.status(201).json({ message: "success", UpdateBookingUser });
