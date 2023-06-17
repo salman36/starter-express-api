@@ -15,7 +15,7 @@ import {AppBooking, AppBookingData} from "../Controllers/BookingUserController.j
 import {CreatePlaylandUser, PlaylandAllData, PlaylandUserUpdate, PlaylandUserDelete} from "../Controllers/PlaylandUserController.js";
 import { BusinessUserSet, BusinessUserGet } from "../Controllers/BusinessUserController.js";
 import {  BusinessPlaylandData } from "../Controllers/BusinessPlaylandUserController.js";
-import { BusinessBookingUserCreate, BookingUserData, BusinessPlaylandBooked, PaymentCreate } from "../Controllers/BusinessBookingUserController.js";
+import { BusinessBookingUserCreate, BookingUserData, BusinessPlaylandBooked, PaymentCreate,BusinessPlaylandUpdate } from "../Controllers/BusinessBookingUserController.js";
 
 const userRouter = express.Router();
 
@@ -51,6 +51,8 @@ userRouter.route("/businessuser/record/:id").get(BusinessUserGet);
 // userRouter.route("/businessplaylanduser").post(upload.single("image"),BusinessPlaylandUserCreate);
 
 userRouter.route("/user/playland/:id").get(BusinessPlaylandData);
+
+userRouter.route("/playland/update/:id").post(BusinessPlaylandUpdate);
 
 userRouter.route("/booked/playland/:id").get(BusinessPlaylandBooked);
 

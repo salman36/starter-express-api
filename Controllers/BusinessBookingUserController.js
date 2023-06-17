@@ -67,6 +67,25 @@ export const BookingUserData = catchAsyncErrors(async (req, res, next) => {
 
 });
 
+///////////// update playland user data ////////////////////
+
+export const BusinessPlaylandUpdate = async (req, res, next) => {
+  const appuser_id = req.params.id;
+  
+  const bookingUser = await BusinessBookingUser.findOne({appuser_id: appuser_id});
+
+  if (!bookingUser) {
+    return next(new ErrorHandler("playland not found", 404));
+  }
+
+  const UpdateBookingUser = await BusinessBookingUser.findOneAndUpdate(
+    {appuser_id : appuser_id},
+    req.body
+  );
+
+  res.status(201).json({ message: "success", UpdateBookingUser });
+};
+
 
 ////////////////////////////  Booked playland record ////////////////////////
 export const BusinessPlaylandBooked = catchAsyncErrors(async (req, res, next) => {
