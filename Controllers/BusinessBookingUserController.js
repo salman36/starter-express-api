@@ -70,16 +70,15 @@ export const BookingUserData = catchAsyncErrors(async (req, res, next) => {
 ///////////// update playland user data ////////////////////
 
 export const BusinessPlaylandUpdate = async (req, res, next) => {
-  const appuser_id = req.params.id;
-  
-  const bookingUser = await BusinessBookingUser.findOne({appuser_id: appuser_id});
+
+  const bookingUser = await BusinessBookingUser.findById(req.params.id);
 
   if (!bookingUser) {
     return next(new ErrorHandler("playland not found", 404));
   }
 
   const UpdateBookingUser = await BusinessBookingUser.findOneAndUpdate(
-    {appuser_id : appuser_id},
+      req.params.id,
     {
       paymentstatus : "confirmed",
       bookingstatus : "confirmed"
