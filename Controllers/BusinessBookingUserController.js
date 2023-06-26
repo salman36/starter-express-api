@@ -6,9 +6,9 @@ import dotenv from "dotenv";
 import { response } from "express";
 dotenv.config();
 import stripePackage from 'stripe';
-
-const stripeSecretKey = process.env.SECRET_KEY;
-const stripe = stripePackage(stripeSecretKey);
+import stripe from 'stripe';
+const secretKey = 'sk_test_51NEDnZD7q9cT09mVx6pZKtUePb04E0SpzlLSCNpD7qyTBW7wfH3uP1hbFsNIAFuyePxzPfhkbWQi6hyVazcFXUi40024laLDyQ';
+const stripeClient = stripe(secretKey);
 
 
 
@@ -114,26 +114,22 @@ export const BusinessPlaylandBooked = catchAsyncErrors(async (req, res, next) =>
 
 export const PaymentCreate = catchAsyncErrors(async (req, res, next) => {
 
+  // const stripeSecretKey = process.env.SECRET_KEY;
+// const stripe = stripePackage(stripeSecretKey);
+
+
+
 
   try {
-    stripe.customers.create({
+    const charge = await stripeClient.charges.create({
+      amount: req.body.amount,
+      currency: 'usd',
+      source: req.body.stripeToken.token.id,
+      description: 'Payment for fun care booking'
+    });
 
-      email:req.body.stripeEmail,
-      source:req.body.stripeToken,
-      name:req.body.name,
-
-    })
-    .then((customer)=>{
-      return stripe.charages.create({
-        amount:req.body.amount,
-        currency:"USD",
-        customer:customer.id,
-
-      })
-    })
-    .then((charage)=>{
-      response.send(charage);
-    }) 
+    //  console.log(charge);
+     res.status(201).json({ message: "success", charge });
 
   } catch (err) {
     console.error(err);
