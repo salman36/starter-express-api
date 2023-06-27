@@ -132,7 +132,8 @@ export const PaymentCreate = catchAsyncErrors(async (req, res, next) => {
      res.status(201).json({ message: "success", charge });
 
   } catch (err) {
-    console.error(err);
+    res.status(400).json({ message: "Error", err });
+
   }
 
 });
