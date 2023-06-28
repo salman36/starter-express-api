@@ -69,8 +69,11 @@ export const BookingUserData = catchAsyncErrors(async (req, res, next) => {
 
 ///////////// update playland user data ////////////////////
 
-export const BusinessPlaylandUpdate = async (req, res, next) => {
 
+
+
+
+export const BusinessPlaylandUpdate = async (req, res, next) => {
   const bookingUser = await BusinessBookingUser.findById(req.params.id);
 
   if (!bookingUser) {
@@ -78,11 +81,12 @@ export const BusinessPlaylandUpdate = async (req, res, next) => {
   }
 
   const UpdateBookingUser = await BusinessBookingUser.findOneAndUpdate(
-      req.params.id,
+    { _id: req.params.id }, // Filter to find the document to update
     {
-      paymentstatus : "confirmed",
-      bookingstatus : "confirmed"
-    },
+      paymentstatus: "confirmed",
+      bookingstatus: "confirmed",
+    }, // Object containing the update properties and values
+    { new: true } // To return the updated document
   );
 
   res.status(201).json({ message: "success", UpdateBookingUser });

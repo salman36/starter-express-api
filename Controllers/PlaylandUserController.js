@@ -94,7 +94,7 @@ export const PlaylandAllData = catchAsyncErrors(async (req, res, next) => {
 
 export const PlaylandUserUpdate = async (req, res, next) => {
   const playlandUser = await PlaylandUser.findById(req.params.id);
-  console.log(playlandUser);
+  // console.log(playlandUser);
   if (!playlandUser) {
     return next(new ErrorHandler("playland not found", 404));
   }
