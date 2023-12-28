@@ -4,7 +4,7 @@ import cors from "cors";
 import userRouter from "./routes/userRoute.js";
 import bodyParser from "body-parser";
 
-// import { middleware } from "./middleware/error.js";
+import { middleware } from "./middleware/error.js";
 import cookieParser from "cookie-parser";
 import adminRouter from "./routes/adminRoute.js";
 
@@ -29,7 +29,7 @@ app.use("/api/auth", userRouter,express.static('./public/uploads/'));
 app.use("/api/admin", adminRouter,express.static('./public/uploads/'));
 
 //Error handler middleware
-// app.use(middleware);
+app.use(middleware);
 
 export default app;
 
