@@ -6,6 +6,7 @@ import bodyParser from "body-parser";
 
 // import { middleware } from "./middleware/error.js";
 import cookieParser from "cookie-parser";
+import adminRouter from "./routes/adminRoute.js";
 
 const app = express();
 app.use(cookieParser());
@@ -25,6 +26,7 @@ app.use("/public", express.static("./public"));
 // app.use("/api", productRouter);
 
 app.use("/api/auth", userRouter,express.static('./public/uploads/'));
+app.use("/api/admin", adminRouter,express.static('./public/uploads/'));
 
 //Error handler middleware
 // app.use(middleware);
