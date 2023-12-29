@@ -42,8 +42,8 @@ adminSchema.pre("save", async function (next) {
 // JWT TOKEN
 adminSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, `${process.env.JWT_SECRET}`, {
-    expiresIn: `${process.env.JWT_EXPIRE}`,
-  });
+    
+  },'secret', {expiresIn: 60 * 60});
 };
 
 //// compare password /////
