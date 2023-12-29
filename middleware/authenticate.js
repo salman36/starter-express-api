@@ -9,7 +9,7 @@ export const isAuthenticateUser = catchAsyncErrors(async (req, res, next) => {
   if (!token) {
     return next(new ErrorHandler(), "please login first", 401);
   }
-  const decodedData = jwt.verify(token, process.env.JWT_SECRET);
+  const decodedData = jwt.verify(token, `${process.env.JWT_SECRET}`);
   // console.log(decodedData);
   req.user = await UserModel.findById(decodedData.id);
   next();
