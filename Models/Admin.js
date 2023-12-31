@@ -42,6 +42,7 @@ adminSchema.pre("save", async function (next) {
 // JWT TOKEN
 adminSchema.methods.getJWTToken = function () {
   const expiresIn = `${process.env.JWT_EXPIRE}` || '1d';
+  console.log('Expires In:', expiresIn);
   return jwt.sign({ id: this._id }, `${process.env.JWT_SECRET}`, {
     expiresIn: expiresIn,
   });
