@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import { response } from "express";
+import { json } from "body-parser";
 
 const adminSchema = new mongoose.Schema({
   name: {
@@ -42,7 +44,7 @@ adminSchema.pre("save", async function (next) {
 // JWT TOKEN
 adminSchema.methods.getJWTToken = function () {
   const expiresIn = `${process.env.JWT_EXPIRE}` || '1d';
-  console.log('Expires In:', expiresIn);
+  // return json response 
   return jwt.sign({ id: this._id }, `${process.env.JWT_SECRET}`, {
     expiresIn: expiresIn,
   });
