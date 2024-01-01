@@ -136,7 +136,7 @@ export const Allusers = async (req, res, next) => {
     // const endIndex = page * limit;
     // console.log(startIndex + "|" + endIndex);
     const users = await AppUser
-      .find({ name: { $regex: search } })
+      .find()
       .skip(startIndex)
       .limit(limit);
     // console.log(users);
