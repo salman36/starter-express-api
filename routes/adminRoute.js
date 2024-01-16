@@ -9,7 +9,6 @@ import {
   Allplaylands,
   AllBusinessUser,
   BusinessUserActivate,
-  PlaylandUserActivate
 } from "../Controllers/AdminController.js";
 
 const adminRouter = express.Router();
@@ -29,8 +28,6 @@ adminRouter.route("/allplaylands").get(Allplaylands);
 adminRouter.route("/businessuser").get(AllBusinessUser);
 
 adminRouter.route("/businessuseractivate/:id").put(BusinessUserActivate);
-
-adminRouter.route("/playlanduseractivate/:id").put(PlaylandUserActivate);
 
 
 export default adminRouter;

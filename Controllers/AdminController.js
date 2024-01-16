@@ -224,47 +224,18 @@ export const BusinessUserActivate = async (req, res, next) => {
     req.params.id,
     req.body
   );
+//  console.log(UpdatedBusinessUser._id);
 
-  res.status(201).json({ message: "success", UpdatedBusinessUser });
-};
+const userIdToUpdate = req.params.id;
+    const newStatus = true; // or false
 
-
-
-
-
-export const PlaylandUserActivate = async (req, res, next) => {
-  try {
-    // Find the Playland user by user_id
-    const playlanduser = await PlaylandUser.findOne({ user_id: req.params.id });
-
-    // Check if the Playland user exists
-    if (!playlanduser) {
-      return next(new ErrorHandler("Playland user not found", 404));
-    }
-
-    // Check the user_id
-    // console.log(playlanduser.user_id);
-
-    // Update the status to true using findOneAndUpdate
-    const updatedPlaylandUser = await PlaylandUser.findOneAndUpdate(
-      { user_id: req.params.id },
-      { $set: { status: true } },
-      { new: true }
+    // Update the playland status using raw MongoDB query
+    const result = await PlaylandUser.collection.updateOne(
+      { user_id: userIdToUpdate },
+      { $set: { status: newStatus } }
     );
 
-    // Check if the document was updated
-    if (!updatedPlaylandUser) {
-      throw new ErrorHandler("Status not updated", 500);
-    }
-
-    // Return the updated document
-    res.status(200).json({ message: "Success", PlaylandUserActivate: updatedPlaylandUser });
-  } catch (error) {
-    next(error); // Pass the error to the error handler
-  }
+  // res.status(201).json({ message: "success", result });
+  res.status(201).json({ message: "success", UpdatedBusinessUser });
 };
-
-
-
-
 
