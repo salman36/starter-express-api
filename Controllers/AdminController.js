@@ -5,6 +5,7 @@ import sendToken from "../utils/jwtToken.js";
 import sendEmail from "../utils/sendEmail.js";
 import AppUser from "../Models/AppUser.js";
 import PlaylandUser from "../Models/PlaylandUser.js";
+import BusinessUser from "../Models/BusinessUser.js";
 
 /// register user  ////////
 
@@ -180,4 +181,49 @@ export const Allplaylands = async (req, res, next) => {
   } catch (error) {
     res.status(500).json({ message: "error" + error });
   }
+
 };
+///////////// get All inactive Business user function ////////////////////
+export const AllBusinessUser = async (req, res, next) => {
+  try {
+    const totalCount = await BusinessUser.countDocuments({ status: false });
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+
+    const startIndex = (page - 1) * limit;
+
+    const businessUsers = await BusinessUser
+      .find({ status: false })  // Fetch records where status is false
+      .skip(startIndex)
+      .limit(limit);
+
+    businessUsers.forEach((user) => {
+      // Assuming you have a property named 'path' in each user
+      user.path = `${req.protocol}://${req.hostname}:${process.env.PORT}/${user.path}`;
+    });
+
+    const totalPage = Math.ceil(totalCount / limit);
+
+    res.status(200).json({ message: "success", businessUsers, totalPage, totalCount });
+  } catch (error) {
+    res.status(500).json({ message: "error" + error });
+  }
+};
+
+
+///////////// Activate Business user function ////////////////////
+
+export const BusinessUserActivate = async (req, res, next) => {
+  const businessUser = await BusinessUser.findById(req.params.id);
+  // console.log(businessUser);
+  if (!businessUser) {
+    return next(new ErrorHandler("playland not found", 404));
+  }
+  const UpdatedBusinessUser = await BusinessUser.findByIdAndUpdate(
+    req.params.id,
+    req.body
+  );
+
+  res.status(201).json({ message: "success", UpdatedBusinessUser });
+};
+
