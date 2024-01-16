@@ -168,7 +168,8 @@ export const Allplaylands = async (req, res, next) => {
     const playlands = await PlaylandUser
       .find({ name: { $regex: search } })
       .skip(startIndex)
-      .limit(limit);
+      .limit(limit)
+      .populate('user_id','email');
     // console.log(playlands);
     playlands.forEach((productPath) => {
       productPath.path = `${req.protocol}://${req.hostname}:${process.env.PORT}/${productPath.path}`;
